@@ -7,7 +7,7 @@ const auth = require('../../middlewares/auth');
 const router = express.Router();
 
 router.post('/', auth('completedRegistration'), validate(appointmentValidation.createAppintment), appointmentController.createAppointmnet);
-router.get('/', auth('admin'), appointmentController.getAppointmnets); // IMO for privacy reasons only admin should see all appointments in application
+router.get('/', auth('completedRegistration'), appointmentController.getAppointmnets);
 router.get('/:appointmentId', auth('completedRegistration'), validate(appointmentValidation.getAppintment), appointmentController.getAppointmnet);
 router.put('/:appointmentId', auth('completedRegistration'), validate(appointmentValidation.updateAppintment), appointmentController.updateAppointment);
 router.delete('/:appointmentId', auth('completedRegistration'), validate(appointmentValidation.deleteAppintment), appointmentController.deleteAppointment);

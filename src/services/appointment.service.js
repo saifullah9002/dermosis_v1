@@ -29,6 +29,8 @@ const createAppointment = async (appointmentBody) => {
  * @returns {Promise}
  */
 const getAllAppointments = async () => {
+    var appointments = Appointment.find();
+
     return Appointment.find();
 };
 
