@@ -14,7 +14,7 @@ const issueSchema = mongoose.Schema({
     },
     type: {
         type: String,
-        enum: issueTypes,
+        required: true,
     }
 },
     {
