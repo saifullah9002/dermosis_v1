@@ -6,7 +6,7 @@ const createFeedback = {
         patientId: Joi.string().required().custom(objectId),
         doctorId: Joi.string().required().custom(objectId),
         details: Joi.string().required(),
-        rating: Joi.number().integer().min(1).max(5).required()
+        rating: Joi.number().min(1).max(5).required()
     }),
 };
 
