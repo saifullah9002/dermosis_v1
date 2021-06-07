@@ -4,8 +4,16 @@ const { authService, userService, tokenService, emailService, appointmentService
 const ApiError = require('../utils/ApiError');
 
 const createFeedback = catchAsync(async (req, res) => {
+    const feedbacks = await feedbackService.getAllDoctorsFeedbacks({appointmentId: req.body.appointmentId});
+    console.log(feedbacks);
+    if (feedbacks.length == 0) {
     const feedback = await feedbackService.createFeedback(req.body)
     res.status(httpStatus.OK).send(feedback);
+    }
+    else{
+        res.status(httpStatus.BAD_REQUEST).send("feedback against appointment exists");
+    }
+   
 });
 
 const getFeedback = catchAsync(async (req, res) => {
@@ -21,6 +29,18 @@ const getFeedbacks = catchAsync(async (req, res) => {
     res.status(httpStatus.OK).send(feedbacks);
 });
 
+const getDoctorFeedbacks = catchAsync(async (req, res) => {
+    console.log(req.body.doctorId);
+    const feedbacks = await feedbackService.getAllDoctorsFeedbacks({doctorId: req.body.doctorId});
+    var totalRating = 0;
+    for (var i in feedbacks)
+    {
+        totalRating= totalRating+feedbacks[i].rating;
+    }
+    totalRating = totalRating / feedbacks.length;
+    res.status(httpStatus.OK).send({feedbacks, totalRating});
+});
+
 const updateFeedback = catchAsync(async (req, res) => {
     const feedback = await feedbackService.updateFeedback(req.body, req.params.feedbackId);
     res.status(httpStatus.OK).send(feedback);
@@ -34,6 +54,7 @@ const deleteFeedback = catchAsync(async (req, res) => {
 module.exports = {
     createFeedback,
     getFeedback,
+    getDoctorFeedbacks,
     getFeedbacks,
     updateFeedback,
     deleteFeedback

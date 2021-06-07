@@ -9,6 +9,7 @@ const { imageFilter, upload, storage } = require('./../../config/fileUpload');
 const router = express.Router();
 
 router.get('/doctor', auth('completedRegistration'), userController.getDoctors);
+router.post('/', auth('completedRegistration'), userController.updateUser);
 router.get('/doctor/unconfirmed', auth('completedRegistration'), userController.getUnconfirmedDoctors);
 router.put('/doctor/:doctorId/confirm', userController.confirmDoctor);
 router.post('/doctor/:doctorId/attachment', userController.uploadDoctorAttachments);
@@ -109,6 +110,38 @@ module.exports = router;
  *             type: object
  *             $ref: '#/components/schemas/User'
  * */
+
+
+/**
+ * @swagger
+ * /user:
+ *   post:
+ *     summary: Update profile, only give parameters that needs to be updated! Password is not accepted as it is hashed.
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               profile-image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             type: object
+ *             $ref: '#/components/schemas/User'
+ * */
+
 
 /**
  * @swagger

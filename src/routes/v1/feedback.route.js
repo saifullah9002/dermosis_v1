@@ -7,6 +7,7 @@ const auth = require('../../middlewares/auth');
 const router = express.Router();
 
 router.post('/', auth('completedRegistration'), validate(feedbackValidation.createFeedback), feedbackController.createFeedback);
+router.post('/get-feedback', auth('completedRegistration'), validate(feedbackValidation.getDoctorFeedback), feedbackController.getDoctorFeedbacks);
 router.get('/', auth('completedRegistration'), feedbackController.getFeedbacks);
 router.get('/:feedbackId', auth('completedRegistration'), validate(feedbackValidation.getFeedback), feedbackController.getFeedback);
 router.put('/:feedbackId', auth('completedRegistration'), validate(feedbackValidation.updateFeedback), feedbackController.updateFeedback);
@@ -38,6 +39,7 @@ module.exports = router;
  *               - doctorId
  *               - details
  *               - rating
+ *               - appointmentId
  *             properties:
  *               details:
  *                 type: string
@@ -46,6 +48,8 @@ module.exports = router;
  *               patientId:
  *                 type: string
  *               doctorId:
+ *                 type: string
+ *               appointmentId:
  *                 type: string
  *             example:
  *               details: Connection was slow

@@ -12,6 +12,11 @@ const feedbackSchema = mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    appointmentId: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Appointment',
+        required: true,
+    },
     details: {
         type: String,
         required: true,

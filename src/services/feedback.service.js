@@ -20,6 +20,7 @@ const createFeedback = async (feedbackBody) => {
     if (!doctor || doctor.role !== 'doctor') {
         throw new ApiError(httpStatus.NOT_FOUND, 'Doctor does not exist');
     }
+
     const feedback = await Feedback.create(feedbackBody)
     return feedback;
 };
@@ -30,6 +31,14 @@ const createFeedback = async (feedbackBody) => {
  */
 const getAllFeedbacks = async () => {
     return Feedback.find();
+};
+
+/**
+ * Get all feedbacks
+ * @returns {Promise}
+ */
+ const getAllDoctorsFeedbacks = async (filter) => {
+    return Feedback.find(filter);
 };
 
 /**
@@ -82,6 +91,7 @@ const deleteFeedback = async (feedbackId) => {
 module.exports = {
     createFeedback,
     getAllFeedbacks,
+    getAllDoctorsFeedbacks,
     getFeedbackById,
     updateFeedback,
     deleteFeedback

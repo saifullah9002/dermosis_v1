@@ -5,6 +5,7 @@ const createFeedback = {
     body: Joi.object().keys({
         patientId: Joi.string().required().custom(objectId),
         doctorId: Joi.string().required().custom(objectId),
+        appointmentId: Joi.string().required().custom(objectId),
         details: Joi.string().required(),
         rating: Joi.number().min(1).max(5).required()
     }),
@@ -13,6 +14,12 @@ const createFeedback = {
 const getFeedback = {
     params: Joi.object().keys({
         feedbackId: Joi.string().custom(objectId),
+    }),
+};
+
+const getDoctorFeedback = {
+    params: Joi.object().keys({
+        doctorId: Joi.string().custom(objectId),
     }),
 };
 
@@ -39,6 +46,7 @@ const updateFeedback = {
 module.exports = {
     createFeedback,
     getFeedback,
+    getDoctorFeedback,
     deleteFeedback,
     updateFeedback
 };
