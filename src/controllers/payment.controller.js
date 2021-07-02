@@ -27,15 +27,16 @@ const getPayments = catchAsync(async (req, res) => {
 
 const getMyPayments = catchAsync(async (req, res) => {
   const payment = await paymentService.getAllPayments();
+  let userid= req.params.doctorId;
   const myPayments = [];
-  appointments = await appointmentService.findAppointments(req.params.doctorId)
+  appointments = await appointmentService.findAppointments({ doctorId :userid})
 
   for(const paymentDetail in payment)
   {
-    for ( let v in appointments)
+    for ( let id in appointments)
     {
-      let user = await userService.getUserById(v.patientId);
-      if (paymentDetail.appointmentId === v.id)
+      let user = await userService.getUserById(id.patientId);
+      if (id.id == paymentDetail.appointmentId)
       {
           myPayments.push({paymentDetail, user});
       }

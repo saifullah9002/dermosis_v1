@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.get('/appointment/:appointmentId', auth('completedRegistration'), validate(paymentValidation.getPaymentForAppointment), paymentController.getPaymentForAppointment);
 router.get('/:paymentId', auth('completedRegistration'), validate(paymentValidation.getPayment), paymentController.getPayment);
-router.get('/', auth('completedRegistration'), validate(paymentValidation.getDoctor), paymentController.getMyPayments);
-router.get('/my-payments/:doctorId', auth('completedRegistration'), paymentController.getPayments);
+router.get('/', auth('completedRegistration'), paymentController.getPayments);
+router.get('/my-payments/:doctorId', auth('completedRegistration'),validate(paymentValidation.getDoctor), paymentController.getMyPayments);
 router.put('/:paymentId', auth('completedRegistration'), validate(paymentValidation.updatePayment), paymentController.updatePayment);
 router.delete('/:paymentId', auth('completedRegistration'), validate(paymentValidation.deletePayment), paymentController.deletePayment);
 router.put('/:paymentId/pay', auth('completedRegistration'), validate(paymentValidation.deletePayment), paymentController.pay);

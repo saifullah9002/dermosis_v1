@@ -9,7 +9,7 @@ const getPayment = {
 
 const getDoctor = {
     params: Joi.object().keys({
-        paymentId: Joi.string().custom(objectId),
+        doctorId: Joi.string().custom(objectId),
     }),
 };
 
