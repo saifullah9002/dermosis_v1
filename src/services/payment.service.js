@@ -28,6 +28,20 @@ const getAllPayments = async () => {
     return Payment.find();
 };
 
+
+
+
+/**
+ * Get all payments
+ * @param {String} conversationId
+ * @returns {Promise}
+ */
+ const getAllPaymentsforUser = async (filter) => {
+    return Payment.find(filter).populate("appointmentId").exec();
+};
+
+
+
 /**
  * Get payment with Id
  * @param {String} paymentId
@@ -106,6 +120,7 @@ const pay = async (paymentId) => {
 module.exports = {
     createPayment,
     getAllPayments,
+    getAllPaymentsforUser,
     getPaymentById,
     getPaymentForAppointment,
     updatePayment,

@@ -1,5 +1,5 @@
 {
-  "name": "doctor-appointment-server",
+  "name": "dermosis",
   "version": "1.0.0",
   "description": "",
   "bin": "bin/createNodejsApp.js",

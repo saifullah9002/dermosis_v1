@@ -21,8 +21,15 @@ module.exports = {
                 console.log(userMap);
             });
 
-            //Defining Server behavious on Socket Events
-            //In this context message is video/audio feed (packet of data = message)
+            socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+                const user = userMap.get(receiverId);
+                // getUser(receiverId);
+                io.to(user.socketId).emit("getMessage", {
+                  senderId,
+                  text,
+                });
+              });
+
             socket.on('message', function (message, room) {
                 console.log('Client said: ', message);
                 //server should send the receive only in room
