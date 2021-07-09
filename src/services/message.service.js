@@ -33,6 +33,15 @@ const getAllMessagesInConversations = async (conversationId) => {
 };
 
 /**
+ * Get all messages in conversation
+ * @param {String} conversationId
+ * @returns {Promise}
+ */
+ const getAllMessagesInConversationsx = async (conversationId) => {
+    return Message.find({ conversationId: conversationId }).sort({date: 'desc'});
+};
+
+/**
  * Get message with Id
  * @param {String} messageId
  * @returns {Promise}
@@ -82,6 +91,7 @@ const deleteMessage = async (messageId) => {
 module.exports = {
     createMessage,
     getAllMessagesInConversations,
+    getAllMessagesInConversationsx,
     getMessageById,
     updateMessage,
     deleteMessage

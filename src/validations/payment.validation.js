@@ -25,6 +25,12 @@ const deletePayment = {
     }),
 };
 
+const userId = {
+    params: Joi.object().keys({
+        userId: Joi.string().custom(objectId),
+    }),
+};
+
 const updatePayment = {
     params: Joi.object().keys({
         paymentId: Joi.required().custom(objectId),
@@ -43,5 +49,6 @@ module.exports = {
     getPaymentForAppointment,
     deletePayment,
     updatePayment,
-    getDoctor
+    getDoctor,
+    userId
 };

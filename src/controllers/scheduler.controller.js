@@ -6,6 +6,7 @@ const scheduleAppointmentNotifications = catchAsync(async () => {
     schedulerService.scheduleAppointmentNotifications(appointments);
 });
 
+
 module.exports = {
     scheduleAppointmentNotifications
 };

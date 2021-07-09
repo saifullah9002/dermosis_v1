@@ -13,6 +13,7 @@ router.get('/my-payments/:doctorId', auth('completedRegistration'),validate(paym
 router.put('/:paymentId', auth('completedRegistration'), validate(paymentValidation.updatePayment), paymentController.updatePayment);
 router.delete('/:paymentId', auth('completedRegistration'), validate(paymentValidation.deletePayment), paymentController.deletePayment);
 router.put('/:paymentId/pay', auth('completedRegistration'), validate(paymentValidation.deletePayment), paymentController.pay);
+router.get('/withdraw/:userId', auth('completedRegistration'), validate(paymentValidation.userId), paymentController.withdraw);
 
 module.exports = router;
 

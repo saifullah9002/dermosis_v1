@@ -37,7 +37,10 @@ const getAllPayments = async () => {
  * @returns {Promise}
  */
  const getAllPaymentsforUser = async (filter) => {
-    return Payment.find(filter).populate("appointmentId").exec();
+    return Payment.find(filter)
+    .populate({ path: "appointmentId", model: "Appointment",
+    populate:[{path: "doctorId", model: "User"}, {path: "patientId", model: "User"}]
+});
 };
 
 

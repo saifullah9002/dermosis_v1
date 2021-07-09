@@ -94,6 +94,3 @@ module.exports = {
     },
     connectedClients: userMap
 }
-
-// For android developer:
-// https://stackoverflow.com/questions/24771872/how-to-keep-web-socket-connection-active-when-android-app-is-closed

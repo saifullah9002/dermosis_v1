@@ -52,8 +52,15 @@ passport.use('jwt', jwtStrategy);
 if (config.env === 'production') {
   app.use('/v1/auth', authLimiter);
 }
+/*
+app.use("/admin",express.static(path.join(__dirname, "./../public/admin")));
 
-app.use(express.static(path.join(__dirname, "./../public")));
+app.use((req,res,next)=>{
+    res.sendFile(__dirname, "./../public/admin/index.html")
+});
+*/
+
+app.use(express.static(path.join(__dirname, "./../public/")));
 
 app.get('/video-call', function (req, res) {
   res.render("index.ejs");

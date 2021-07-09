@@ -2,6 +2,8 @@ const httpStatus = require('http-status');
 const userService = require('./user.service');
 const ApiError = require('../utils/ApiError');
 const { Conversation, User } = require('../models');
+const { conversationService } = require('.');
+const { model } = require('mongoose');
 
 /**
  * Create new conversation
@@ -15,6 +17,12 @@ const createConversation = async(conversationBody) => {
             throw new ApiError(httpStatus.NOT_FOUND, 'Conversation participant does not exist');
         }
     });
+
+    const con = await Conversation.find({ participants: { $all: conversationBody.participants }});
+    if(con.length>0)
+    {
+        return "Conversation between users already created!";
+    }
     const conversation = await Conversation.create(conversationBody)
     return conversation;
 };
@@ -32,7 +40,7 @@ const getAllConversations = async() => {
  * @returns {Promise}
  */
  const findconversation = async (filter) => {
-    return Conversation.find(filter);
+    return Conversation.find(filter).populate({path: "participants", model: "User"});
 };
 
 /**

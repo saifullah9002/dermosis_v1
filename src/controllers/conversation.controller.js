@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const { conversationService, userService } = require('../services');
+const { conversationService, userService, messageService } = require('../services');
 const ApiError = require('../utils/ApiError');
 
 const createConversation = catchAsync(async (req, res) => {
@@ -26,10 +26,9 @@ const getMyConversations = catchAsync(async (req, res) => {
     const myConversations = [];
     for (let x=0; x < conversations.length; x++)
     {
-        let user1 = await userService.getUserById(conversations[x]["participants"][0]);  
-        let user2 = await userService.getUserById(conversations[x]["participants"][1]);
-        conversation = conversations[x];
-        myConversations.push({conversation, user1, user2});
+        
+        let message = await messageService.getAllMessagesInConversationsx(conversations[x]["_id"])
+        myConversations.push([conversations[x], message[0] ]);
     }
     res.status(httpStatus.OK).send(myConversations);
 });
