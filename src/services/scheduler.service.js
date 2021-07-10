@@ -31,10 +31,11 @@ const scheduleAppointmentNotifications = async (appointments) => {
         const call = await callService.createCall({ appointmentId: appointment._id });
         patientData = await userService.getUserById(appointment.patientId);
         doctorData = await userService.getUserById(appointment.doctorId);
+        console.log("running appointment service, current appointment id: " +appointment._id);
         scheduler.scheduleJob(date, function() {
             const doctorScoketId = socketController.connectedClients.get(String(appointment.doctorId));
             const patientScoketId = socketController.connectedClients.get(String(appointment.patientId));
-            
+            console.log("emitting signal to: "  +doctorScoketId +"   and   "+patientScoketId );
             io.to(doctorScoketId).emit("appointment starting", [call._id,patientData.firstname + " " + patientData.lastname ]);
             io.to(patientScoketId).emit("appointment starting", [call._id,doctorData.firstname + " " + doctorData.lastname]);
         });
