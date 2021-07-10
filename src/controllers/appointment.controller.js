@@ -2,10 +2,13 @@ const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { paymentService, appointmentService, userService } = require('../services');
 const ApiError = require('../utils/ApiError');
+const scheduler = require('./controllers/scheduler.controller');
+
 
 const createAppointmnet = catchAsync(async (req, res) => {
     const appointment = await appointmentService.createAppointment(req.body);
     const payment = await paymentService.createPayment({ appointmentId: appointment._id });
+    scheduler.scheduleAppointmentNotifications();
     res.status(httpStatus.OK).send({ appointment, payment });
 });
 
