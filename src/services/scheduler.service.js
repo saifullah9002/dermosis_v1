@@ -1,4 +1,6 @@
 const scheduler = require('node-schedule');
+const { userService } = require('.');
+const app = require('../app');
 const socketController = require('./../controllers/socket.controller');
 const callService = require('./call.service');
 
@@ -30,8 +32,10 @@ const scheduleAppointmentNotifications = async (appointments) => {
         scheduler.scheduleJob(date, function () {
             const doctorScoketId = socketController.connectedClients.get(String(appointment.doctorId));
             const patientScoketId = socketController.connectedClients.get(String(appointment.patientId));
-            io.to(doctorScoketId).emit("appointment starting", call._id);
-            io.to(patientScoketId).emit("appointment starting", call._id);
+            patientData = await userService.getUserById(appointment.patientId);
+            doctorData = await userService.getUserById(appointment.doctorId);
+            io.to(doctorScoketId).emit("appointment starting", [call._id,patientData.firstname + " " + patientData.lastname ]);
+            io.to(patientScoketId).emit("appointment starting", [call._id,doctorData.firstname + " " + doctorData.lastname]);
         });
     });
 };

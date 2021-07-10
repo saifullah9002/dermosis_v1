@@ -27,28 +27,27 @@ if (config.env !== 'test') {
 // set security HTTP headers
 //app.use(helmet());
 
-// parse json request body
+
 app.use(express.json());
 
-// parse urlencoded request body
+
 app.use(express.urlencoded({ extended: true }));
 
-// sanitize request data
+
 app.use(xss());
 app.use(mongoSanitize());
 
-// gzip compression
+
 app.use(compression());
 
-// enable cors
 app.use(cors());
 app.options('*', cors());
 
-// jwt authentication
+
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
-// limit repeated failed requests to auth endpoints
+
 if (config.env === 'production') {
   app.use('/v1/auth', authLimiter);
 }

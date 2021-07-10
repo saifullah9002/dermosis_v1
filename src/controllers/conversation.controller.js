@@ -22,14 +22,18 @@ const getConversations = catchAsync(async (req, res) => {
 });
 
 const getMyConversations = catchAsync(async (req, res) => {
-    const conversations = await conversationService.findconversation({participants: req.params.userId});
+   const conversations = await conversationService.findconversation({participants: req.params.userId});
     const myConversations = [];
     for (let x=0; x < conversations.length; x++)
     {
         
         let message = await messageService.getAllMessagesInConversationsx(conversations[x]["_id"])
-        myConversations.push([conversations[x], message[0] ]);
+        myConversations.push(conversations[x],message[0]);
     }
+
+   
+    
+
     res.status(httpStatus.OK).send(myConversations);
 });
 

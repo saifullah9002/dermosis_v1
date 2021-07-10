@@ -41,6 +41,8 @@ const getAllMessagesInConversations = async (conversationId) => {
     return Message.find({ conversationId: conversationId }).sort({date: 'desc'});
 };
 
+
+
 /**
  * Get message with Id
  * @param {String} messageId

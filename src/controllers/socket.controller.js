@@ -4,6 +4,7 @@ const socketio = require('socket.io');
 let io, socketExport;
 let userMap = new Map();
 
+
 module.exports = {
     init: function (server) {
 
@@ -36,7 +37,7 @@ module.exports = {
                 socket.in(room).emit('message', message, room);
             });
 
-            //Event for joining/creating room
+
             socket.on('create or join', function (room) {
                 console.log('Received request to create or join room ' + room);
 
