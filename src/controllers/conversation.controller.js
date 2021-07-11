@@ -27,10 +27,11 @@ const getMyConversations = catchAsync(async (req, res) => {
     for (let x=0; x < conversations.length; x++)
     {
         
-        let message = await messageService.getAllMessagesInConversationsx(conversations[x]["_id"])
-        myConversations.push(conversations[x],message[0]);
+        let message = await messageService.getAllMessagesInConversationsx(conversations[x]["_id"]);
+        let c= conversations[x];
+        delete c.participants;
+        myConversations.push(c, conversations[x]["participants"][0], conversations[x]["participants"][1] ,message[0]);
     }
-
    
     
 
