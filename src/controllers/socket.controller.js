@@ -46,7 +46,11 @@ module.exports = {
                 var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
                 console.log('Room ' + room + ' now has ' + numClients + ' client(s)');
 
+                let offerSDP="";
+                let answerSDP="";
+
                 //If no client is in the room, create a room and add the current client
+
                 if (numClients === 0) {
                     socket.join(room);
                     console.log('Client ID ' + socket.id + ' created room ' + room);
@@ -56,8 +60,26 @@ module.exports = {
                     io.sockets.in(room).emit('join', room);
                     socket.join(room);
                     socket.emit('joined', room, socket.id);
+                    io.to(socket.id).emit("getOffer", offerSDP);
                     io.sockets.in(room).emit('ready');
                 }
+
+                socket.on("sendOffer", function(offer){
+                    offerSDP = offer;
+                    //io.socket.to(room).emit("getOffer", offer);
+                    console.log("offer sent!");
+                });
+                
+                socket.on("sendAnswerSDP", function(answer){
+                    answerSDP=answer;
+                    io.sockets.to(room).emit('getAnswerSDP', answerSDP);
+                    console.log("answer offer sent!");
+                });
+
+                
+
+
+
             });
 
             //Utility event 
