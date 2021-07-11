@@ -28,9 +28,38 @@ const getMyConversations = catchAsync(async (req, res) => {
     {
         
         let message = await messageService.getAllMessagesInConversationsx(conversations[x]["_id"]);
-        let c= conversations[x];
-        delete c.participants;
-        myConversations.push(c, conversations[x]["participants"][0], conversations[x]["participants"][1] ,message[0]);
+        let conversation = conversations[x];
+        let patName = "";
+        let docName = "";
+        let patId = "";
+        let docId = "";
+        if (conversations[x]["participants"][0]["role"]=="patient" ){
+            patName =  conversations[x]["participants"][0]["firstname"]+" "+conversations[x]["participants"][0]["lastname"];
+            patId = conversations[x]["participants"][0]["_id"];
+        }
+        else{
+            patName =  conversations[x]["participants"][1]["firstname"]+" "+conversations[x]["participants"][1]["lastname"];
+            patId = conversations[x]["participants"][1]["_id"];
+        }
+
+        if(conversations[x]["participants"][0]["role"] == "doctor"){
+            docName =  conversations[x]["participants"][0]["firstname"]+" "+conversations[x]["participants"][0]["lastname"];
+            docId = conversations[x]["participants"][0]["_id"];
+        }
+        else{
+            docName =  conversations[x]["participants"][1]["firstname"]+" "+conversations[x]["participants"][1]["lastname"];
+            docId = conversations[x]["participants"][1]["_id"];
+        }
+
+
+        let messages= "";
+        if(message[0]==undefined ){
+            messages= "No Messages!";
+        }
+        else{
+            messages= message[0]["content"]
+        }
+        myConversations.push({"coversationId":conversations[x]["_id"],"patientName": patName,"doctorName":docName,"patientId":patId,"doctorId":docId,"lastMessage":messages});
     }
    
     
