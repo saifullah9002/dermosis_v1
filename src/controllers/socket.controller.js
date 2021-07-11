@@ -64,22 +64,25 @@ module.exports = {
                     io.sockets.in(room).emit('ready');
                 }
 
-                socket.on("sendOffer", function(offer){
-                    offerSDP = offer;
-                    //io.socket.to(room).emit("getOffer", offer);
-                    console.log("offer sent!");
-                });
-                
-                socket.on("sendAnswerSDP", function(answer){
-                    answerSDP=answer;
-                    io.sockets.to(room).emit('getAnswerSDP', answerSDP);
-                    console.log("answer offer sent!");
-                });
+               
 
                 
 
 
 
+            });
+
+
+            socket.on("sendOffer", function(offer){
+                offerSDP = offer;
+                //io.socket.to(room).emit("getOffer", offer);
+                console.log("offer sent!\n" );
+            });
+            
+            socket.on("sendAnswerSDP", function(answer){
+                answerSDP=answer;
+                io.sockets.to(room).emit('getAnswerSDP', answerSDP);
+                console.log("answer offer sent!");
             });
 
             //Utility event 
