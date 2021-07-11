@@ -53,11 +53,11 @@ const getMyConversations = catchAsync(async (req, res) => {
 
 
         let messages= "";
-        if(message[0]==undefined ){
+        if(message[message.length-1]==undefined ){
             messages= "No Messages!";
         }
         else{
-            messages= message[0]["content"]
+            messages= message[message.length-1]["content"]
         }
         myConversations.push({"coversationId":conversations[x]["_id"],"patientName": patName,"doctorName":docName,"patientId":patId,"doctorId":docId,"lastMessage":messages});
     }
