@@ -28,30 +28,58 @@ const getMyConversations = catchAsync(async (req, res) => {
     {
         
         let message = await messageService.getAllMessagesInConversationsx(conversations[x]["_id"]);
+        let user1 =  await userService.getUserById(conversations[x]["participants"][0]);
+        let user2 =  await userService.getUserById(conversations[x]["participants"][1]);
+
+        console.log(user1+"\n"+ user2);
         let conversation = conversations[x];
         let patName = "";
         let docName = "";
         let patId = "";
         let docId = "";
+
+
+        console.log(conversation["participants"]);
+
+
+        if(user1["role"] == "patient"){
+            
+
+            console.log(conversations[x]);
+            docName = user2.firstname+" "+  user2.lastname;
+            docId = user2._id;
+            patName =  user1.firstname+" "+  user1.lastname;
+            patId =  user1._id;
+
+        }
+        else{
+            docName = user1.firstname+" "+  user1.lastname;
+            docId = user1._id;
+            patName =  user2.firstname+" "+  user2.lastname;
+            patId =  user2._id;
+        }
         
-        if (conversations[x]["participants"][0]["role"]=="patient" ){
-            patName =  conversations[x]["participants"][0]["firstname"]+" "+conversations[x]["participants"][0]["lastname"];
-            patId = conversations[x]["participants"][0]["_id"];
+
+//         if (conversations[x]["participants"][1]["role"] == "doctor"){
+//             docName =  conversations[x]["participants"][1]["firstname"] + " " + conversations[x]["participants"][1]["lastname"];
+//             docId = conversations[x]["participants"][1]["_id"];
+//         }
+// 
+       /* if (conversations[x].participants[0].role == "patient" ){
+            
+        }
+        else if (conversations[x]["participants"][1]["role"] == "patient"){
+            
         }
         else{
-            docName =  conversations[x]["participants"][1]["firstname"]+" "+conversations[x]["participants"][1]["lastname"];
-            docId = conversations[x]["participants"][1]["_id"];
+            console.log("pat not at 0");
         }
 
-
-        /*if(conversations[x]["participants"][0]["role"] == "doctor"){
-            docName =  conversations[x]["participants"][0]["firstname"] + " " + conversations[x]["participants"][0]["lastname"];
-            docId = conversations[x]["participants"][0]["_id"];
-        }
-        else{
+        if(conversations[x]["participants"][1]["role"] == "doctor"){
             docName =  conversations[x]["participants"][1]["firstname"] + " " + conversations[x]["participants"][1]["lastname"];
             docId = conversations[x]["participants"][1]["_id"];
         }*/
+       
 
 
         let messages= "";

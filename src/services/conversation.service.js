@@ -40,7 +40,7 @@ const getAllConversations = async() => {
  * @returns {Promise}
  */
  const findconversation = async (filter) => {
-    return Conversation.find(filter).populate({path: "participants", model: "User"});
+    return Conversation.find(filter);
 };
 
 /**
