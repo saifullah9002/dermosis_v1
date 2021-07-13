@@ -50,7 +50,9 @@ const getDoctors = catchAsync(async (req, res) => {
 });
 
 const findUsers = catchAsync(async (req, res) => {
-  const users = await userService.findUsers(req.body);
+
+  const users = await userService.findUsers({"role": "doctor"},{"isRegistrationComplete": false});
+  console.log(users.length);
   res.status(httpStatus.OK).send(users);
 });
 

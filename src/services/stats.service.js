@@ -1,9 +1,6 @@
 const { User, Appointment, Payment } = require('../models');
 const MonthNames = require('./../config/monthNames');
 
-/**
- * Get dashboard stats
- */
 const getDashboardStatistics = async () => {
     return {
         registeredPatients: await getUserIncreases('patient'),
