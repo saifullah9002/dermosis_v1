@@ -23,6 +23,7 @@ const getPayment = catchAsync(async (req, res) => {
 
 const getPayments = catchAsync(async (req, res) => {
   const payment = await paymentService.getAllPayments();
+  console.log("payments length: "+payment.length);
   res.status(httpStatus.OK).send(payment);
 });
 

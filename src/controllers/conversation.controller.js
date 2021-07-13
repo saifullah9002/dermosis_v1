@@ -37,11 +37,19 @@ const getMyConversations = catchAsync(async (req, res) => {
             patName =  conversations[x]["participants"][0]["firstname"]+" "+conversations[x]["participants"][0]["lastname"];
             patId = conversations[x]["participants"][0]["_id"];
         }
+        else{
+            patName =  conversations[x]["participants"][1]["firstname"]+" "+conversations[x]["participants"][1]["lastname"];
+            patId = conversations[x]["participants"][1]["_id"];
+        }
 
 
         if(conversations[x]["participants"][0]["role"] == "doctor"){
             docName =  conversations[x]["participants"][0]["firstname"] + " " + conversations[x]["participants"][0]["lastname"];
             docId = conversations[x]["participants"][0]["_id"];
+        }
+        else{
+            docName =  conversations[x]["participants"][1]["firstname"] + " " + conversations[x]["participants"][1]["lastname"];
+            docId = conversations[x]["participants"][1]["_id"];
         }
 
 
